@@ -1,0 +1,6 @@
+---
+
+- name: Gather distribution specific variables
+  include_vars: "{{ ansible_distribution }}.yml"
+
+- include: "{{ ansible_distribution }}/setup.yml"

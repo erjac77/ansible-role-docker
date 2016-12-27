@@ -1,0 +1,56 @@
+---
+
+# Requirements
+
+- name: Check operating system version and architecture
+  fail:
+    msg: "This role does not supported {{ ansible_distribution }} {{ ansible_distribution_version }} {{ ansible_architecture }} operating system. Aborting!"
+  when: (ansible_distribution != "Ubuntu") or (ansible_distribution_version|version_compare(14.04, '<')) or (ansible_architecture.find('64') == -1)
+
+- name: Check current kernel version
+  fail: 
+    msg: "Docker requires version 3.10 or higher of the Linux kernel. Aborting!"
+  when: ansible_kernel|version_compare(3.10, '<')
+
+- name: Update package manager and install the linux-image-extra-* kernel packages
+  apt:
+    pkg: "{{ item }}"
+    state: present
+    update_cache: yes
+  with_items:
+    - linux-image-extra-{{ ansible_kernel }}
+    - linux-image-extra-virtual
+  when: docker_install_linux_image_extras
+
+# Update apt sources
+
+- name: Update package information, ensure that APT works with the https method, and that CA certificates are installed
+  apt:
+    pkg: "{{ item }}"
+    state: present
+    update_cache: yes
+  with_items:
+    - apt-transport-https
+    - ca-certificates
+
+- name: Add the new GPG key
+  apt_key:
+    id: "{{ docker_apt_key_id }}"
+    keyserver: "{{ docker_apt_key_keyserver }}"
+    state: present
+
+- name: Add Docker repository and update the APT package index
+  apt_repository:
+    repo: "deb https://apt.dockerproject.org/repo {{ ansible_distribution|lower }}-{{ ansible_distribution_release|lower }} main"
+    mode: '644'
+    update_cache: yes
+    state: present
+
+- name : Search for available Docker packages ready for installation
+  shell: apt-cache policy docker-engine
+  register: apt_cache_output
+
+- name: Verify that APT is pulling from the right repository
+  fail: 
+    msg: "Wrong Docker repository. Aborting!"
+  when: apt_cache_output.stdout.find('{{ ansible_distribution_release|lower }}') == -1

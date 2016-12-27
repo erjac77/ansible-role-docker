@@ -1,0 +1,19 @@
+---
+
+galaxy_info:
+  author: Eric Jacob (@erjac77)
+  description: Install Docker on various Linux distributions
+  license: Apache 2.0
+  min_ansible_version: 2.2
+  platforms:
+    - name: Ubuntu
+      versions:
+        - trusty
+        - wily
+        - xenial
+  galaxy_tags:
+    - system
+    - docker
+    - ubuntu
+    - packaging
+    - cloud

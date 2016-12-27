@@ -1,0 +1,8 @@
+---
+
+# Flag to install linux-image-extra-* kernel packages
+docker_install_linux_image_extras: true
+
+# APT id and keyserver
+docker_apt_key_id: 58118E89F3A912897C070ADBF76221572C52609D
+docker_apt_key_keyserver: hkp://p80.pool.sks-keyservers.net:80
