@@ -1,80 +1,49 @@
-# ANSIBLE ROLE: DOCKER
+# Ansible Role: Docker
 
-An Ansible role to install Docker on various Linux distributions.
+An Ansible role to install Docker CE on various Linux distributions.
 
-_**Note:** At the moment, Ubuntu is the only platform supported by this role._
+## Requirements
 
-## REQUIREMENTS
+#### Supported distributions
 
-* Ubuntu >= 14.04
-* 64-bit Linux installation
-* Linux kernel >= 3.10
+| Debian | Ubuntu |
+| --- | --- |
+| Buster 10<br> | Cosmic 18.10 |
+| Stretch 9 (stable) /<br>Raspbian Stretch | Bionic 18.04 (LTS) |
+| | Xenial 16.04 (LTS) |
 
-## INSTALLATION
-
-#### USING _ANSIBLE GALAXY_:
+## Installation
 
 ```
 ansible-galaxy install erjac77.docker
 ```
 
-#### USING _GIT CLONE_:
+## Role Variables
 
-Clone this repository inside the `roles/` subdirectory of your playbook or inside one of the additional directories specified by the `roles_path` setting in `ansible.cfg`.
-
-```
-git clone https://github.com/erjac77/ansible-role-docker.git erjac77.docker
-```
-
-## ROLE VARIABLES
-
-```
----
-
-# Default package name (docker-engine)
-docker_pkg_name: docker-engine
+```yaml
+# Channel ("stable", "edge", "testing" or "nightly")
+docker_channel: stable
+# State ("present", "latest")
+docker_state: present
 
 # Test container infos
 docker_test_container_name: hello-world
 docker_test_container_image: hello-world
 
 # List of users to be added to the docker group
-docker_group_members: [ "{{ lookup('env', 'USER') }}" ]
-
-# Flag to enable UFW forwarding
-docker_ufw_enable_forwarding: false
-# Default UFW forward policy
-docker_ufw_default_forward_policy: ACCEPT
-# UFW rule to allow incoming connections on the Docker port
-docker_ufw_rules:
-  - { rule: allow, to_port: 2376, protocol: tcp }
+docker_users: ["{{ lookup('env', 'USER') }}"]
 
 # Flag to configure Docker to start on boot
 docker_start_on_boot: true
 ```
 
-### UBUNTU VARIABLES
-
-```
----
-
-# Flag to install linux-image-extra-* kernel packages
-docker_install_linux_image_extras: true
-
-# APT id and keyserver
-docker_apt_key_id: 58118E89F3A912897C070ADBF76221572C52609D
-docker_apt_key_keyserver: hkp://p80.pool.sks-keyservers.net:80
-```
-
-## DEPENDENCIES
+## Dependencies
 
 None.
 
-## EXAMPLE PLAYBOOK
+## Example Playbook
 
-```
----
-
+```yaml
 - name: Install Docker
   hosts: localhost
   become: yes
@@ -83,10 +52,10 @@ None.
     - erjac77.docker
 ```
 
-## LICENSE
+## License
 
 Apache 2.0
 
-## AUTHOR INFORMATION
+## Author Information
 
 Eric Jacob ([@erjac77](https://github.com/erjac77))

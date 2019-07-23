@@ -1,5 +1,0 @@
----
-
-- include: prerequisites.yml
-- include: install_docker.yml
-- include: optional_configurations.yml

@@ -1,0 +1,27 @@
+---
+
+# Set up the repository
+
+- name: Update the apt package index and install packages to allow apt to use a repository over HTTPS
+  apt:
+    name: "{{ docker_dependencies }}"
+    update_cache: yes
+    state: present
+
+- name: Add Docker's official GPG key
+  apt_key:
+    url: "{{ docker_gpg_key }}"
+    state: present
+
+- name: Add Docker apt repository
+  apt_repository:
+    repo: "{{ docker_apt_repository }}"
+    state: present
+
+# Install Docker CE
+
+- name: Update the apt package index and install the latest version of Docker CE and containerd
+  apt:
+    name: "{{ docker_packages }}"
+    update_cache: yes
+    state: present

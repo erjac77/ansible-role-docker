@@ -1,0 +1,9 @@
+---
+
+docker_dependencies: ['apt-transport-https', 'ca-certificates', 'curl', 'gnupg2', 'software-properties-common']
+docker_gpg_key: "https://download.docker.com/linux/{{ ansible_distribution | lower }}/gpg"
+docker_apt_repository: >
+  deb [arch=amd64]
+  https://download.docker.com/linux/{{ ansible_distribution | lower }}
+  {{ ansible_distribution_release }} {{ docker_channel }}
+docker_packages: ['docker-ce', 'docker-ce-cli', 'containerd.io']

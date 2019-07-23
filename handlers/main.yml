@@ -1,10 +1,6 @@
 ---
 
-- name: Reload UFW
-  ufw:
-    state: reloaded
-
 - name: Restart the Docker daemon
-  service:
+  systemd:
     name: docker
     state: restarted

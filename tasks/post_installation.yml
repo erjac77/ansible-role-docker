@@ -1,0 +1,40 @@
+---
+
+# Verify that docker is installed correctly
+
+- name: Verify that docker is installed correctly by running the {{ docker_test_container_name }} image
+  docker_container:
+    name: "{{ docker_test_container_name }}"
+    image: "{{ docker_test_container_image }}"
+    state: started
+
+- name: Stop and remove the {{ docker_test_container_name }} image
+  docker_container:
+    name: "{{ docker_test_container_name }}"
+    state: absent
+
+# Manage Docker as a non-root user
+
+- block:
+
+    - name: Create the docker group
+      group:
+        name: docker
+        state: present
+
+    - name: Add users to the docker group
+      user:
+        name: "{{ item }}"
+        groups: docker
+        append: yes
+      loop: "{{ docker_users }}"
+
+  when: docker_users is defined
+
+# Configure Docker to start on boot
+
+- name: Configure Docker to start on boot
+  systemd:
+    name: docker
+    state: started
+  when: docker_start_on_boot

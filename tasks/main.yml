@@ -3,4 +3,8 @@
 - name: Gather distribution specific variables
   include_vars: "{{ ansible_distribution }}.yml"
 
-- include: "{{ ansible_distribution }}/setup.yml"
+- name: Get Docker CE
+  import_tasks: "{{ ansible_distribution }}/main.yml"
+
+- name: Post installation steps for Linux
+  import_tasks: post_installation.yml
