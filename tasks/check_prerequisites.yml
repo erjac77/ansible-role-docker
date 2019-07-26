@@ -1,14 +1,5 @@
 ---
 
-# - block:
-#
-#     - name: Fail task when Docker is not supported on this distribution version
-#       fail:
-#         msg: "Docker is not supported on your distribution version!"
-#       when: ansible_distribution_version not in supported_distribution_versions
-#
-#   when: check_distribution_version
-
 - name: Uninstall old versions of Docker
   include_tasks: "{{ ansible_os_family }}/uninstall_old_versions.yml"
   when: docker_uninstall_old_versions
