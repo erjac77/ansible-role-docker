@@ -11,7 +11,7 @@ docker_packages:
   - "docker-{{ docker_edition }}-cli"
   - containerd.io
 # State can be one of: 'present' or 'latest'
-docker_state: latest
+docker_state: present
 
 # Docker SDK for Python
 docker_pip_dependencies:
