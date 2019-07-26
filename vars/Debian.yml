@@ -1,9 +1,27 @@
 ---
 
-docker_dependencies: ['apt-transport-https', 'ca-certificates', 'curl', 'gnupg2', 'software-properties-common']
+docker_old_packages:
+  - docker
+  - docker-engine
+  - docker.io
+  - containerd
+  - runc
+
+# Architecture can be one of: 'amd64', 'armhf', 'arm64', 'ppc64el' or 's390x'
+docker_arch: amd64
+# APT release channel can be one or many of: 'stable', 'nightly' or 'test'
+docker_channels:
+  - stable
+
+docker_dependencies:
+  - apt-transport-https
+  - ca-certificates
+  - curl
+  - gnupg2
+  - software-properties-common
+
 docker_gpg_key: "https://download.docker.com/linux/{{ ansible_distribution | lower }}/gpg"
-docker_apt_repository: >
-  deb [arch=amd64]
+docker_repository: >-
+  deb [arch={{ docker_arch }}]
   https://download.docker.com/linux/{{ ansible_distribution | lower }}
-  {{ ansible_distribution_release }} {{ docker_channel }}
-docker_packages: ['docker-ce', 'docker-ce-cli', 'containerd.io']
+  {{ ansible_distribution_release }} {{ docker_channels | join(' ') }}

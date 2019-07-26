@@ -2,7 +2,7 @@
 
 - name: Converge
   hosts: all
-  become: yes
+  become: true
 
   roles:
     - role: ansible-role-docker

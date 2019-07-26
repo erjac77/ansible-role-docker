@@ -1,6 +1,6 @@
 ---
 
-- name: Restart the Docker daemon
-  systemd:
+- name: restart docker
+  service:
     name: docker
     state: restarted

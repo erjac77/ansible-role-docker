@@ -9,11 +9,10 @@ lint:
   options:
     config-file: molecule/yamllint.yml
 platforms:
-  - name: ubuntu-bionic
-    image: ubuntu:bionic
-    command: /sbin/init
-    volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+  - name: instance
+    image: ${DOCKER_IMG:-geerlingguy/docker-ubuntu1804-ansible:latest}
+    pre_build_image: ${DOCKER_PRE_BUILD_IMG:-true}
+    command: ${DOCKER_CMD:-"sleep infinity"}
     privileged: true
 provisioner:
   name: ansible

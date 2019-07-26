@@ -1,10 +1,31 @@
 ---
 
-- name: Gather distribution specific variables
-  include_vars: "{{ ansible_distribution }}.yml"
+- name: Determine Linux distribution
+  debug:
+    msg: "{{ ansible_distribution }} {{ ansible_distribution_version }} ({{ ansible_distribution_release }})"
 
-- name: Get Docker CE
-  import_tasks: "{{ ansible_distribution }}/main.yml"
+- name: Gather {{ ansible_os_family }} OS family specific variables
+  include_vars: "{{ ansible_os_family }}.yml"
 
-- name: Post installation steps for Linux
-  import_tasks: post_installation.yml
+- name: Check prerequisites
+  include_tasks: check_prerequisites.yml
+
+- name: Install Docker Engine
+  include_tasks: install_docker_engine.yml
+
+# Post installation steps for Linux
+
+- name: Manage Docker as a non-root user
+  include_tasks: manage_as_non_roor_user.yml
+  when: docker_users is defined
+
+- name: Configure Docker to start on boot
+  include_tasks: configure_to_start_on_boot.yml
+  when: docker_start_on_boot
+
+- name: Ensure handlers are notified to avoid firewall conflicts
+  meta: flush_handlers
+
+- name: Install Docker SDK for Python
+  include_tasks: install_sdk_for_python.yml
+  when: docker_pip_packages is defined
