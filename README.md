@@ -1,5 +1,8 @@
 # Ansible Role: Docker
 
+[![Build Status](https://travis-ci.com/erjac77/ansible-role-docker.svg?branch=master)](https://travis-ci.com/erjac77/ansible-role-docker)
+[![License](https://img.shields.io/badge/License-Apache%202.0-yellowgreen.svg)](https://opensource.org/licenses/Apache-2.0)
+
 An Ansible role to install Docker (CE or EE) on various Linux distributions.
 
 ## Requirements
