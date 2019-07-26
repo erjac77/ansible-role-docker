@@ -1,0 +1,6 @@
+---
+
+- name: Uninstall old packages
+  yum:
+    name: "{{ docker_old_packages }}"
+    state: absent

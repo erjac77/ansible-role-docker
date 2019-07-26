@@ -1,0 +1,17 @@
+---
+
+- name: Install required packages
+  apt:
+    name: "{{ docker_dependencies }}"
+    update_cache: true
+    state: present
+
+- name: Add Docker's official GPG key
+  apt_key:
+    url: "{{ docker_gpg_key }}"
+    state: present
+
+- name: Add Docker apt repository
+  apt_repository:
+    repo: "{{ docker_repository }}"
+    state: present

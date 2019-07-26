@@ -1,0 +1,13 @@
+---
+
+- name: Create the docker group
+  group:
+    name: docker
+    state: present
+
+- name: Add users to the docker group
+  user:
+    name: "{{ item }}"
+    groups: docker
+    append: true
+  loop: "{{ docker_users }}"

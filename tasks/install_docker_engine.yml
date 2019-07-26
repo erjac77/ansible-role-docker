@@ -1,0 +1,9 @@
+---
+
+- name: Set up the repository
+  include_tasks: "{{ ansible_os_family }}/setup_repository.yml"
+
+- name: Install Docker {{ docker_edition | upper }}
+  package:
+    name: "{{ docker_packages }}"
+    state: "{{ docker_state }}"

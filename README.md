@@ -1,80 +1,79 @@
-# ANSIBLE ROLE: DOCKER
+# Ansible Role: Docker
 
-An Ansible role to install Docker on various Linux distributions.
+[![Build Status](https://travis-ci.com/erjac77/ansible-role-docker.svg?branch=master)](https://travis-ci.com/erjac77/ansible-role-docker)
+[![License](https://img.shields.io/badge/License-Apache%202.0-yellowgreen.svg)](https://opensource.org/licenses/Apache-2.0)
 
-_**Note:** At the moment, Ubuntu is the only platform supported by this role._
+An Ansible role to install Docker (CE or EE) on various Linux distributions.
 
-## REQUIREMENTS
+## Requirements
 
-* Ubuntu >= 14.04
-* 64-bit Linux installation
-* Linux kernel >= 3.10
+#### Supported distributions
 
-## INSTALLATION
+| Distribution | Version            |
+| ------------ | ------------------ |
+| CentOS       | 7                  |
+| Debian       | Buster 10          |
+|              | Stretch 9 (stable) |
+| Fedora       | 29                 |
+|              | 28                 |
+| Ubuntu       | Cosmic 18.10       |
+|              | Bionic 18.04 (LTS) |
+|              | Xenial 16.04 (LTS) |
 
-#### USING _ANSIBLE GALAXY_:
+## Installation
 
 ```
 ansible-galaxy install erjac77.docker
 ```
 
-#### USING _GIT CLONE_:
+## Role Variables
 
-Clone this repository inside the `roles/` subdirectory of your playbook or inside one of the additional directories specified by the `roles_path` setting in `ansible.cfg`.
+```yaml
+# Flag to uninstall old versions of Docker
+docker_uninstall_old_versions: false
 
-```
-git clone https://github.com/erjac77/ansible-role-docker.git erjac77.docker
-```
+# Edition can be one of: 'ce' (Community Edition) or 'ee' (Enterprise Edition)
+docker_edition: ce
+# Docker and containerd packages
+docker_packages:
+  - "docker-{{ docker_edition }}"
+  - "docker-{{ docker_edition }}-cli"
+  - containerd.io
+# State can be one of: 'present' or 'latest'
+docker_state: present
 
-## ROLE VARIABLES
-
-```
----
-
-# Default package name (docker-engine)
-docker_pkg_name: docker-engine
-
-# Test container infos
-docker_test_container_name: hello-world
-docker_test_container_image: hello-world
+# Docker SDK for Python
+docker_pip_dependencies:
+  - python-setuptools
+  - python-pip
+docker_pip_packages:
+  - docker
 
 # List of users to be added to the docker group
-docker_group_members: [ "{{ lookup('env', 'USER') }}" ]
-
-# Flag to enable UFW forwarding
-docker_ufw_enable_forwarding: false
-# Default UFW forward policy
-docker_ufw_default_forward_policy: ACCEPT
-# UFW rule to allow incoming connections on the Docker port
-docker_ufw_rules:
-  - { rule: allow, to_port: 2376, protocol: tcp }
+docker_users:
+  - "{{ lookup('env', 'USER') }}"
 
 # Flag to configure Docker to start on boot
 docker_start_on_boot: true
 ```
 
-### UBUNTU VARIABLES
+#### Debian / Ubuntu
 
-```
----
-
-# Flag to install linux-image-extra-* kernel packages
-docker_install_linux_image_extras: true
-
-# APT id and keyserver
-docker_apt_key_id: 58118E89F3A912897C070ADBF76221572C52609D
-docker_apt_key_keyserver: hkp://p80.pool.sks-keyservers.net:80
+```yaml
+# Architecture can be one of: 'amd64', 'armhf', 'arm64', 'ppc64el' or 's390x'
+docker_arch: amd64
+# APT release channel can be one or many of: 'stable', 'nightly' or 'test'
+docker_channels:
+  - stable
 ```
 
-## DEPENDENCIES
+## Dependencies
 
 None.
 
-## EXAMPLE PLAYBOOK
+## Example Playbook
 
-```
----
-
+```yaml
 - name: Install Docker
   hosts: localhost
   become: yes
@@ -83,10 +82,10 @@ None.
     - erjac77.docker
 ```
 
-## LICENSE
+## License
 
 Apache 2.0
 
-## AUTHOR INFORMATION
+## Author Information
 
 Eric Jacob ([@erjac77](https://github.com/erjac77))
