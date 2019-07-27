@@ -7,7 +7,7 @@ services:
 
 env:
   global:
-    - ROLE_NAME: docker
+    - ROLE_NAME=docker
   matrix:
     - DOCKER_IMG='geerlingguy/docker-centos7-ansible:latest' DOCKER_CMD='/usr/sbin/init'
     - DOCKER_IMG='geerlingguy/docker-debian10-ansible:latest'
@@ -31,4 +31,5 @@ script:
   - molecule test
 
 notifications:
-  webhooks: https://galaxy.ansible.com/api/v1/notifications/
+  webhooks:
+    - https://galaxy.ansible.com/api/v1/notifications/
