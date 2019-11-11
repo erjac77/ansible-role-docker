@@ -8,3 +8,9 @@
     name: "{{ docker_old_packages }}"
     state: absent
   when: docker_uninstall_old_versions
+
+- name: Install pip dependencies
+  package:
+    name: "{{ docker_pip_dependencies }}"
+    state: present
+  when: docker_pip_packages is defined or docker_install_compose

@@ -12,6 +12,7 @@ env:
     - DOCKER_IMG='geerlingguy/docker-centos7-ansible:latest' DOCKER_CMD='/usr/sbin/init'
     - DOCKER_IMG='geerlingguy/docker-debian10-ansible:latest'
     - DOCKER_IMG='geerlingguy/docker-debian9-ansible:latest'
+    - DOCKER_IMG='ubuntu:disco' DOCKER_PRE_BUILD_IMG=false
     - DOCKER_IMG='ubuntu:cosmic' DOCKER_PRE_BUILD_IMG=false
     - DOCKER_IMG='geerlingguy/docker-ubuntu1804-ansible:latest'
     - DOCKER_IMG='geerlingguy/docker-ubuntu1604-ansible:latest'

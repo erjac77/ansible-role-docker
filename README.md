@@ -18,7 +18,8 @@ An Ansible role to install Docker (CE or EE) on various Linux distributions.
 |              | Stretch 9 (stable) |
 | Fedora       | 29                 |
 |              | 28                 |
-| Ubuntu       | Cosmic 18.10       |
+| Ubuntu       | Disco 19.04        |
+|              | Cosmic 18.10       |
 |              | Bionic 18.04 (LTS) |
 |              | Xenial 16.04 (LTS) |
 
@@ -44,6 +45,13 @@ docker_packages:
 # State can be one of: 'present' or 'latest'
 docker_state: present
 
+# List of users to be added to the docker group
+docker_users:
+  - "{{ lookup('env', 'USER') }}"
+
+# Flag to configure Docker to start on boot
+docker_start_on_boot: true
+
 # Docker SDK for Python
 docker_pip_dependencies:
   - python-setuptools
@@ -51,12 +59,8 @@ docker_pip_dependencies:
 docker_pip_packages:
   - docker
 
-# List of users to be added to the docker group
-docker_users:
-  - "{{ lookup('env', 'USER') }}"
-
-# Flag to configure Docker to start on boot
-docker_start_on_boot: true
+# Flag to install Docker Compose
+docker_install_compose: true
 ```
 
 #### Debian / Ubuntu
