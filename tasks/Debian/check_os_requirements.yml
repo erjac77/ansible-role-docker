@@ -1,5 +1,7 @@
 ---
 
-- name: Perform an update so that the APT cache is populated with the latest package information
+# Perform an update so that the APT cache is populated with the latest package information
+
+- name: Perform APT cache update
   apt:
-    update_cache: yes
+    update_cache: true
