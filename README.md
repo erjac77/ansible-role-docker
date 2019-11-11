@@ -18,7 +18,8 @@ An Ansible role to install Docker (CE or EE) on various Linux distributions.
 |              | Stretch 9 (stable) |
 | Fedora       | 29                 |
 |              | 28                 |
-| Ubuntu       | Cosmic 18.10       |
+| Ubuntu       | Disco 19.04        |
+|              | Cosmic 18.10       |
 |              | Bionic 18.04 (LTS) |
 |              | Xenial 16.04 (LTS) |
 
