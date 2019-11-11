@@ -44,6 +44,13 @@ docker_packages:
 # State can be one of: 'present' or 'latest'
 docker_state: present
 
+# List of users to be added to the docker group
+docker_users:
+  - "{{ lookup('env', 'USER') }}"
+
+# Flag to configure Docker to start on boot
+docker_start_on_boot: true
+
 # Docker SDK for Python
 docker_pip_dependencies:
   - python-setuptools
@@ -51,12 +58,8 @@ docker_pip_dependencies:
 docker_pip_packages:
   - docker
 
-# List of users to be added to the docker group
-docker_users:
-  - "{{ lookup('env', 'USER') }}"
-
-# Flag to configure Docker to start on boot
-docker_start_on_boot: true
+# Flag to install Docker Compose
+docker_install_compose: true
 ```
 
 #### Debian / Ubuntu

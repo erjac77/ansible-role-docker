@@ -1,7 +1,0 @@
----
-
-- name: Enable start on boot
-  service:
-    name: docker
-    enabled: true
-    state: started

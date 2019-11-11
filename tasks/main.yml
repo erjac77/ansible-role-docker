@@ -13,19 +13,11 @@
 - name: Install Docker Engine
   include_tasks: install_docker_engine.yml
 
-# Post installation steps for Linux
+- name: Post installation steps for Linux
+  include_tasks: post_installation_steps_for_linux.yml
 
-- name: Manage Docker as a non-root user
-  include_tasks: manage_as_non_roor_user.yml
-  when: docker_users is defined
-
-- name: Configure Docker to start on boot
-  include_tasks: configure_to_start_on_boot.yml
-  when: docker_start_on_boot
-
-- name: Ensure handlers are notified to avoid firewall conflicts
-  meta: flush_handlers
-
-- name: Install Docker SDK for Python
-  include_tasks: install_sdk_for_python.yml
-  when: docker_pip_packages is defined
+- name: Install Docker Compose
+  pip:
+    name: docker-compose
+    state: present
+  when: docker_install_compose
