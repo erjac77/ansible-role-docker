@@ -1,5 +1,4 @@
 ---
-
 # Flag to uninstall old versions of Docker
 docker_uninstall_old_versions: false
 

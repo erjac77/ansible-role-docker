@@ -1,5 +1,4 @@
 ---
-
 docker_old_packages:
   - docker
   - docker-engine

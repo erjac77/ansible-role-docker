@@ -1,5 +1,4 @@
 ---
-
 - name: Set up the repository
   include_tasks: "{{ ansible_os_family }}/setup_repository.yml"
 
