@@ -14,9 +14,8 @@
       loop: "{{ docker_users }}"
   when: docker_users is defined
 
-- name: Reload systemd daemon
-  systemd:
-    daemon_reload: true
+- name: Add shim to ensure Docker can start in all environments
+  import_tasks: docker-shim.yml
   when: ansible_service_mgr == 'systemd'
 
 - name: Configure Docker to start on boot
