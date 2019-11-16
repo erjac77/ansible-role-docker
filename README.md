@@ -81,8 +81,8 @@ None.
 
 ```yaml
 - name: Install Docker
-  hosts: localhost
-  become: yes
+  hosts: all
+  become: true
 
   roles:
     - erjac77.docker

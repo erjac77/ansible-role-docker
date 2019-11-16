@@ -1,5 +1,4 @@
 ---
-
 - name: Install required packages
   yum:
     name: "{{ docker_dependencies }}"
