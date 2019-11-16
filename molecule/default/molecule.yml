@@ -14,7 +14,7 @@ platforms:
     pre_build_image: ${DOCKER_PRE_BUILD_IMG:-true}
     privileged: true
     volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+      - ${DOCKER_VOLUMES:-/sys/fs/cgroup:/sys/fs/cgroup:ro}
 provisioner:
   name: ansible
   lint:
