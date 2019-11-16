@@ -14,6 +14,11 @@
       loop: "{{ docker_users }}"
   when: docker_users is defined
 
+- name: Reload systemd daemon
+  systemd:
+    daemon_reload: true
+  when: ansible_service_mgr == 'systemd'
+
 - name: Configure Docker to start on boot
   service:
     name: docker
