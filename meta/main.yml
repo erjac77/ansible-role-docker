@@ -18,7 +18,6 @@ galaxy_info:
         - 28
     - name: Ubuntu
       versions:
-        - disco
         - cosmic
         - bionic
         - xenial
